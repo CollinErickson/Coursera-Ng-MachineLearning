@@ -27,9 +27,9 @@ sigma = zeros(1, size(X, 2));
 %       
 
 
-
-
-
+mu =  ones(size(X))*diag(mean(X));
+sigma = std(X);
+X_norm = (X - mu)* inv(diag(sigma));
 
 
 
