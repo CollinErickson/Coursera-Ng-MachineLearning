@@ -21,9 +21,20 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Input layer
+a1 = X;
+a1 = [ones(m, 1) a1];
+% Hidden layer
+z2 = Theta1 * a1';
+a2 = sigmoid(z2)';
+a2 = [ones(size(a2,1), 1) a2];
+% Output layer
+z3 = Theta2 * a2';
+a3 = sigmoid(z3)';
 
-
-
+% Find max
+[~,p] = max(a3, [], 2);
+%[~,p] = max(X * all_theta', [], 2);
 
 
 
