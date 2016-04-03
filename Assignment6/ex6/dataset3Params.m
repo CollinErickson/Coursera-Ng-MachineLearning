@@ -23,9 +23,29 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+bestC = 0;
+bestsigma = 0;
+lowestcost = Inf;
 
+for Ci = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
+    for sigmai = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
+        model= svmTrain(X, y, Ci, @(x1, x2) gaussianKernel(x1, x2, sigmai)); 
 
+        predictions = svmPredict(model, Xval);
+        %costi = sum(predictions ~= yval);%(predictions - yval).^2;
+        costi = mean(double(predictions ~= yval));
+        
+        if costi < lowestcost
+            bestC = Ci;
+            bestsigma = sigmai;
+            lowestcost = costi;
+        end
+        
+    end
+end
 
+C = bestC;
+sigma = bestsigma;
 
 
 
